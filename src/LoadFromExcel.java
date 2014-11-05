@@ -33,7 +33,7 @@ public class LoadFromExcel {
 	}
 	
 	//"E:\Dropbox\QA_Ashkelon\Programming\Alex_Java\Load_from_file\src\client.xls"
-	
+	//tc0-regular <script> VS.Player.show("bottom-right",300,270,"HASHID",{"auto-play":true,"playback-delay":1,"extrab":1,"gubed":true});</script>
 	public ArrayList<String> readFromExel(String filePath){
 		Workbook wb = null;
 		ArrayList<String> arlist = new ArrayList<String>();
@@ -46,23 +46,37 @@ public class LoadFromExcel {
         for (int sheetNo = 0; sheetNo < wb.getNumberOfSheets(); sheetNo++) {
 
             Sheet sheet = wb.getSheet(sheetNo);
+            int tcNum = 0;
+            String skobki = "";
             
             if(sheet.getName().trim() != null){
                 int columns = sheet.getColumns();
                 int rows = sheet.getRows();
                 String data;
+                String nameColplusData;
                 
-                for (int row = 0; row < rows; row++) {
+                for (int row = 1; row < rows; tcNum++, row++) {
 
-                    for (int col = 0; col < columns; col++) {
+                    for (int col = 1; col < columns; col++) {
                         data = sheet.getCell(col, row).getContents();
-                        line = line + data + ";";                  
+                        
+                        if (data.equals("*")) nameColplusData = "";
+                        
+                        else {
+                        	nameColplusData = sheet.getCell(col, 0).getContents();
+                        
+                        	if (col == 3)        skobki = "{";
+                        	else if (col == 15)  skobki = "}";
+                        	else                 skobki = ";";
+                        	nameColplusData = nameColplusData +":"+ data;
+                        	line =   line + nameColplusData + skobki;
+                        }
                     }
                   // System.out.println(line);    
-                   arlist.add(line);
+                   arlist.add("tc" + tcNum+ "-" + "regular " + "<script> "+ "VS.Player.show(" + line + ");</script>");
                    line = "";
                 }
-             /*  Iterator iter = arlist.iterator();
+              /* Iterator iter = arlist.iterator();
         		while (iter.hasNext()){
         			String stroka = (String)iter.next();
         			System.out.println(stroka.toString());
