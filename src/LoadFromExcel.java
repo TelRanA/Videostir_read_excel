@@ -60,8 +60,9 @@ public class LoadFromExcel {
                     for (int col = 1; col < columns; col++) {
                         data = sheet.getCell(col, row).getContents();
                         
-                        if (data.equals("*")) nameColplusData = "";
-                        
+                        if (data.equals("*")){                        	
+                        	nameColplusData = "";
+                        }
                         else {
                         	nameColplusData = sheet.getCell(col, 0).getContents();
                         
