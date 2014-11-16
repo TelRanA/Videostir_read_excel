@@ -46,7 +46,7 @@ public class LoadFromExcel {
         for (int sheetNo = 0; sheetNo < wb.getNumberOfSheets(); sheetNo++) {
 
             Sheet sheet = wb.getSheet(sheetNo);
-            int tcNum = 0;
+            int tcNum = 1;
             String skobki = "";
             
             if(sheet.getName().trim() != null){
@@ -64,17 +64,22 @@ public class LoadFromExcel {
                         	nameColplusData = "";
                         }
                         else {
+                        	                        	
                         	nameColplusData = sheet.getCell(col, 0).getContents();
                         
                         	if (col == 3)        skobki = "{";
                         	else if (col == 15)  skobki = "}";
-                        	else                 skobki = ";";
-                        	nameColplusData = nameColplusData +":"+ data;
+                        	else                 skobki = ",";
+                        	
+                        	if (col == 1 || col == 2 || col == 3) nameColplusData = data;
+                        	
+                        	else nameColplusData = "\"" + nameColplusData +"\""+":"+ data;
+                        	
                         	line =   line + nameColplusData + skobki;
                         }
                     }
                   // System.out.println(line);    
-                   arlist.add("tc" + tcNum+ "-" + "regular " + "<script> "+ "VS.Player.show(" + line + ");</script>");
+                   arlist.add("tc" + tcNum+ " " + "<script> "+ "VS.Player.show(" + line + ");</script>");
                    line = "";
                 }
               /* Iterator iter = arlist.iterator();
