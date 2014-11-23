@@ -24,6 +24,8 @@ public class LoadFromExcel {
 	//private String absoluteFilePath;
 	private String nameFile = "client.xls";
 	
+	private String skobki = "";
+	
 	public String writeAbsoluteFilePath(){
 		
 		File file = new File(nameFile);		
@@ -47,40 +49,48 @@ public class LoadFromExcel {
 
             Sheet sheet = wb.getSheet(sheetNo);
             int tcNum = 1;
-            String skobki = "";
+            
             
             if(sheet.getName().trim() != null){
                 int columns = sheet.getColumns();
                 int rows = sheet.getRows();
                 String data;
                 String nameColplusData;
-                
+                int col;
                 for (int row = 1; row < rows; tcNum++, row++) {
 
-                    for (int col = 1; col < columns; col++) {
+                    for (col = 1; col < columns; col++) {
                         data = sheet.getCell(col, row).getContents();
                         
                         if (data.equals("*")){                        	
-                        	nameColplusData = "";
+                        	nameColplusData = "";                        	                       	
                         }
-                        else {
-                        	                        	
-                        	nameColplusData = sheet.getCell(col, 0).getContents();
                         
-                        	if (col == 3)        skobki = "{";
-                        	else if (col == 15)  skobki = "}";
-                        	else                 skobki = ",";
+                       
+                        
+                        else {                        	                        	
+                        	nameColplusData = sheet.getCell(col, 0).getContents();
+                                                	
+                        	delimeter(col);                        	
                         	
                         	if (col == 1 || col == 2 || col == 3) nameColplusData = data;
                         	
                         	else nameColplusData = "\"" + nameColplusData +"\""+":"+ data;
                         	
+                        		if (sheet.getCell(15, row).getContents().equals("*") && col == 14){                        		
+                        			line =   line + nameColplusData + "}";
+                        			}
+                        	
                         	line =   line + nameColplusData + skobki;
                         }
+                        
+                        
                     }
-                  // System.out.println(line);    
+                  // System.out.println(line);  
+                 
                    arlist.add("tc" + tcNum+ " " + "<script> "+ "VS.Player.show(" + line + ");</script>");
                    line = "";
+                    
                 }
               /* Iterator iter = arlist.iterator();
         		while (iter.hasNext()){
@@ -90,6 +100,13 @@ public class LoadFromExcel {
             }
         }
         return arlist;
+	}
+
+	private void delimeter(int col) {
+		skobki = ",";
+		if (col == 3)       skobki = "{";                        	
+		if (col == 15)      skobki = "}";
+		
 	}   
 
 	public static void createFile(String path){
