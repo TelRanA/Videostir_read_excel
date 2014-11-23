@@ -80,8 +80,8 @@ public class LoadFromExcel {
                         		if (sheet.getCell(15, row).getContents().equals("*") && col == 14){                        		
                         			line =   line + nameColplusData + "}";
                         			}
-                        	
-                        	line =   line + nameColplusData + skobki;
+                        		else
+                        			line =   line + nameColplusData + skobki;
                         }
                         
                         
