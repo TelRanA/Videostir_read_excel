@@ -125,16 +125,38 @@ public class LoadFromExcel {
 		}		
 	}
 	
+/*	HASHID 18c99febe2085a43b281654fb32ee226
+	line1 <script type="text/javascript" src="https://c391671.ssl.cf1.rackcdn.com/js/121221-vs-libs.min.js"></script></script>
+	line2 <script src="https://6bfe2caabccdd577a810-bdbb90f389a017a4d0321ddd645160f1.ssl.cf1.rackcdn.com/js/2.13.0/vs.player.min.js"></script></script>
+	
+	*/
+	
+	
+	
+	
 	public static void writeToFile (String filePath, ArrayList<String> list){
 		
 		FileWriter fw;
+		
+		String hardcode1 = "HASHID "+"18c99febe2085a43b281654fb32ee226";
+		String hardcode2 = "line1 <script type=\"text/javascript\" src=\"https://c391671.ssl.cf1.rackcdn.com/js/121221-vs-libs.min.js\"></script></script>";
+		String hardcode3 = "line2 <script src=\"https://6bfe2caabccdd577a810-bdbb90f389a017a4d0321ddd645160f1.ssl.cf1.rackcdn.com/js/2.13.0/vs.player.min.js\"></script></script>";
 		
 		try {
 			fw = new FileWriter(filePath);
 			BufferedWriter bw = new BufferedWriter(fw);			
 			
+			bw.write(hardcode1);
+			bw.newLine();
+			bw.write(hardcode2);
+			bw.newLine();
+			bw.write(hardcode3);
+			bw.newLine();
+			bw.newLine();
+			
 			Iterator iter = list.iterator();
     		while (iter.hasNext()){
+    			
     			String stroka = (String)iter.next();
     			System.out.println(stroka.toString());
     			

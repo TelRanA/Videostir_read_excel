@@ -13,12 +13,12 @@ public class Load_main {
 		LoadFromExcel w = new LoadFromExcel();
 		String path = "";
 		path = w.writeAbsoluteFilePath();
-		String pathCreatedFile = w.writeAbsoluteFilePath() +"\\"+ "file.txt";
+		String pathCreatedFile = w.writeAbsoluteFilePath() +"\\"+ "input.txt";
 		
 		ArrayList<String> list = w.readFromExel(path);
-		w.createFile(path + "\\" + "file.txt");
+		LoadFromExcel.createFile(path + "\\" + "input.txt");
 				
-		w.writeToFile(pathCreatedFile, list);
+		LoadFromExcel.writeToFile(pathCreatedFile, list);
 	}
 	
 
