@@ -77,7 +77,7 @@ public class LoadFromExcel {
                         	
                         	else nameColplusData = "\"" + nameColplusData +"\""+":"+ data;
                         	
-                        		if (sheet.getCell(15, row).getContents().equals("*") && col == 14){                        		
+                        		if (col == 14 && sheet.getCell(15, row).getContents().equals("*")  || col == 13 && sheet.getCell(14, row).getContents().equals("*") && sheet.getCell(15, row).getContents().equals("*")){                        		
                         			line =   line + nameColplusData + "}";
                         			}
                         		else
@@ -104,7 +104,7 @@ public class LoadFromExcel {
 
 	private void delimeter(int col) {
 		skobki = ",";
-		if (col == 3)       skobki = "{";                        	
+		if (col == 3)       skobki = ",{";                        	
 		if (col == 15)      skobki = "}";
 		
 	}   
